@@ -19,7 +19,7 @@
     <div class="container">
         <div class="jumbotron">
             <div class="container">
-                <h1 class="display-4">Total number of tasks: <span>{{ tasks_total }}</span></h1>
+                <h1 class="display-4">CRUD example (Flask, SQLalchemy, Sqlite3) <span>{{ tasks_total }}</span></h1>
             </div>
         </div>
     </div>
@@ -27,10 +27,13 @@
     <div class="container">
 
         <div class="make-todo">
-            <h2>Add new todo: <span><input type="text"></span><span><a name="" id="" class="btn btn-primary" href="#" role="button">Submit</a></span></h2>
+            <form action="/add" method="POST">
+                <input type="text" name="todo_item">
+                <input type="submit" value="Submit new item">
+            </form>
         </div>
         <div class="todo">
-            <h1>Todo List</h1>
+            <h1>Pending</h1>
             <ul>
                 <li><input type="checkbox" name="" id=""> task</li>
                 <li><input type="checkbox" name="" id=""> task</li>

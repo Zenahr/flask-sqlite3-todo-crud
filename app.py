@@ -1,5 +1,5 @@
 from flask import Flask
-from flask import render_template
+from flask import render_template, request
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
@@ -14,5 +14,11 @@ class Todo(db.Model):
 @app.route("/")
 def hello():
     return render_template("index.html")
+
+@app.route('/add', methods=["POST"])
+def add():
+   return request.form["todo_item"]
+
+
 if __name__ == '__main__':
     app.run(debug=True)
