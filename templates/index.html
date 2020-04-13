@@ -35,9 +35,9 @@
         <div class="todo">
             <h1>Pending</h1>
             <ul>
-                <li><input type="checkbox" name="" id=""> task</li>
-                <li><input type="checkbox" name="" id=""> task</li>
-                <li><input type="checkbox" name="" id=""> task</li>
+                {% for todo in todos %}
+                <li><input type="checkbox" name="" id=""> {{ todo.text }}</li>
+                {% endfor %}
             </ul>
         </div>
 

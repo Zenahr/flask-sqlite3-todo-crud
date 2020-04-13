@@ -1,5 +1,5 @@
 from flask import Flask
-from flask import render_template, request
+from flask import render_template, request, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
@@ -12,8 +12,9 @@ class Todo(db.Model):
     complete = db.Column(db.Boolean)
 
 @app.route("/")
-def hello():
-    return render_template("index.html")
+def index():
+    todos = Todo.query.all()
+    return render_template("index.html", todos=todos)
 
 @app.route('/add', methods=["POST"])
 def add():
@@ -22,7 +23,7 @@ def add():
     db.session.add(todo)
     db.session.commit()
 
-    return hello()
+    return redirect(url_for("index"))
 
 
 if __name__ == '__main__':
