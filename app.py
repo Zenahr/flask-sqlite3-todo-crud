@@ -17,7 +17,12 @@ def hello():
 
 @app.route('/add', methods=["POST"])
 def add():
-   return request.form["todo_item"]
+    data = request.form["todo_item"]
+    todo = Todo(text=data, complete=False)
+    db.session.add(todo)
+    db.session.commit()
+
+    return hello()
 
 
 if __name__ == '__main__':
