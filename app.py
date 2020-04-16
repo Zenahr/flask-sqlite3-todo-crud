@@ -22,9 +22,14 @@ def add():
     todo = Todo(text=data, complete=False)
     db.session.add(todo)
     db.session.commit()
-
+    # return data # DEBUG REQUEST
     return redirect(url_for("index"))
 
+
+@app.route('/update', methods=["POST"])
+def update():
+    # return request.form # DEBUG REQUEST
+    return redirect(url_for("index"))
 
 if __name__ == '__main__':
     app.run(debug=True)

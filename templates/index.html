@@ -34,11 +34,14 @@
         </div>
         <div class="todo">
             <h1>Pending</h1>
-            <ul>
-                {% for todo in todos %}
-                <li><input type="checkbox" name="" id=""> {{ todo.text }}</li>
-                {% endfor %}
-            </ul>
+            <form action="/update" method="POST">
+                <ul>
+                    {% for todo in todos %}
+                    <li><input type="checkbox" name="{{ todo.id }}"> {{ todo.text }}</li>
+                    {% endfor %}
+                </ul>
+                <input type="submit" value="Submit changes">
+            </form>
         </div>
 
     </div>
