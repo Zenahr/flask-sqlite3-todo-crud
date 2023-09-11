@@ -1,9 +1,12 @@
 from flask import Flask
 from flask import render_template, request, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
+from pathlib import Path, PurePath
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///todo.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = f"sqlite:///{PurePath.joinpath(Path(__file__).resolve().parent, 'todo.db')}"
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
 db = SQLAlchemy(app)
 
 class Todo(db.Model):
@@ -28,6 +31,10 @@ def add():
 
 @app.route('/update', methods=["POST"])
 def update():
+    completed_ids = [int(i) for i in request.form]
+    for todo in Todo.query.all():
+        setattr(todo, 'complete', False if todo.id not in completed_ids else True)
+    db.session.commit()
     # return request.form # DEBUG REQUEST
     return redirect(url_for("index"))
 
