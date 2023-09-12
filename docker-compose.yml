@@ -1,0 +1,55 @@
+version: '3'
+services:
+  app:
+    container_name: flask-sqlite3-todo-crud
+    build: .
+    environment:
+      - FLASK_ENV=development
+      - PYTHONUNBUFFERED=True
+    restart: on-failure
+    volumes:
+      - .:/app
+    ports:
+      - "9999:8080"
+    networks:
+      - flask-sqlite3-todo-crud
+    labels:
+      org.label-schema.group: 'app'
+
+  prometheus:
+    container_name: prometheus
+    image: prom/prometheus:v2.46.0
+    ports:
+      - 9090:9090
+    volumes:
+      - prometheus:/prometheus
+      - ./solution/openmetrics:/openmetrics
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml:ro
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.retention.time=30d'
+      - '--storage.tsdb.retention.size=10GB'
+    networks:
+      - flask-sqlite3-todo-crud
+    labels:
+      org.label-schema.group: 'observability'
+
+  grafana:
+    container_name: grafana
+    image: grafana/grafana:10.0.3
+    ports:
+      - 3000:3000
+    volumes:
+      - grafana:/var/lib/grafana
+    networks:
+      - flask-sqlite3-todo-crud
+    labels:
+      org.label-schema.group: 'observability'
+
+networks:
+  flask-sqlite3-todo-crud:
+    driver: bridge
+
+volumes:
+  prometheus:
+  grafana:

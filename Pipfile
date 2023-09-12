@@ -1,14 +1,16 @@
 [[source]]
-name = "pypi"
 url = "https://pypi.org/simple"
 verify_ssl = true
+name = "pypi"
+
+[packages]
+flask = "==2.3.3"
+flask-sqlalchemy = "==3.1.1"
+gunicorn = "==21.2.0"
+prometheus-flask-exporter = "==0.22.4"
 
 [dev-packages]
 
-[packages]
-flask = "*"
-flask-sqlalchemy = "*"
-gunicorn = "*"
-
 [requires]
-python_version = "3.8"
+python_version = "3.11"
+python_full_version = "3.11.4"
