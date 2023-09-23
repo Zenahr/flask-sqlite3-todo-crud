@@ -37,7 +37,7 @@
             <form action="/update" method="POST">
                 <ul>
                     {% for todo in todos %}
-                    <li><input type="checkbox" name="{{ todo.id }}"> {{ todo.text }}</li>
+                    <li><input type="checkbox" name="{{ todo.id }}" {{ "checked" if todo.complete == True }}> {{ todo.text }}</li>
                     {% endfor %}
                 </ul>
                 <input type="submit" value="Submit changes">
